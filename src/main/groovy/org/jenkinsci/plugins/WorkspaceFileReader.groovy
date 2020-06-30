@@ -1,5 +1,6 @@
 package org.jenkinsci.plugins
 
+import hudson.FilePath
 import hudson.model.OneOffExecutor
 
 /**
@@ -7,8 +8,8 @@ import hudson.model.OneOffExecutor
  */
 class WorkspaceFileReader {
 
-    @Delegate Reader scriptFile
-    String workspace
+    @Delegate FilePath scriptFile
+    FilePath workspace
 
     WorkspaceFileReader() {
         OneOffExecutor thr = Thread.currentThread()
@@ -20,9 +21,9 @@ class WorkspaceFileReader {
         File f = new File(file)
 
         if (f.isAbsolute()) {
-            scriptFile = new FileReader(file)
+            scriptFile = new FilePath(f)
         } else {
-            scriptFile = new FileReader(workspace + File.separator + file)
+            scriptFile = workspace.child(file)
         }
     }
 }
