@@ -36,11 +36,14 @@ abstract class BaseMES extends MatrixExecutionStrategy {
         List<Combination> combs = []
         Map<Combination, MatrixConfiguration> mc = [:]
 
+        final FilterScript combinationFilter = FilterScript.parse(execution.getProject().getCombinationFilter(), FilterScript.ACCEPT_ALL);
+
         execution.activeConfigurations.each {
             def c = it.combination
 
             //only add it if the build listeners say so
-            if (MatrixBuildListener.buildConfiguration(execution.build, it)) {
+            if (combinationFilter.apply(execution, c)
+                    && MatrixBuildListener.buildConfiguration(execution.build, it)) {
                 combs << c
                 mc[c] = it
             }

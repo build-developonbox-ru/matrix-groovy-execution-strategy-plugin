@@ -1,6 +1,7 @@
 package org.jenkinsci.plugins
 
 import hudson.matrix.AxisList
+import hudson.matrix.Combination;
 import hudson.matrix.MatrixProject
 import hudson.matrix.TextAxis
 import spock.lang.Specification
