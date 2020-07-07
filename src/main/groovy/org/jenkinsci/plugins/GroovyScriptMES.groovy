@@ -52,7 +52,7 @@ class GroovyScriptMES extends BaseMES {
             List<ClasspathEntry> cp = []
 
             def scriptInFile = new WorkspaceFileReader(scriptFile).readToString()
-            myScript = new SecureGroovyScript(scriptInFile, false, cp).configuring(ApprovalContext.create())
+            myScript = new SecureGroovyScript(scriptInFile, true, cp).configuring(ApprovalContext.create())
             myScript.configuringWithKeyItem()
         } else {
             throw new GroovyScriptInFileException('')
